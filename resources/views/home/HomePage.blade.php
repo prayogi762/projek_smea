@@ -165,6 +165,13 @@
     </div>
 </section>
 
+<div class="slider">
+    @foreach(\App\Models\Slider::latest()->take(6)->get() as $slide)
+        <img src="{{ asset('storage/sliders/' . $slide->image) }}" alt="">
+    @endforeach
+</div>
+
+
 
 
 @endsection

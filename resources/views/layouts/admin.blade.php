@@ -55,7 +55,7 @@
         <a href="#">Dashboard</a>
         <a href="#">Siswa</a>
         <a href="#">Guru</a>
-        <a href="#">Jurusan</a>
+        <a href="{{ route('slider.index') }}">Slider</a>
         <a href="#">Ekstrakurikuler</a>
         <a href="#">Berita</a>
     </div>

@@ -59,32 +59,3 @@
 </div>
 @endsection
 
-@push('scripts')
-<script>
-    const lineChart = new Chart(document.getElementById('lineChart'), {
-        type: 'line',
-        data: {
-            labels: ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5'],
-            datasets: [{
-                label: 'Nilai Rata-Rata',
-                data: [78, 80, 82, 84, 85],
-                borderColor: '#00A9F6',
-                backgroundColor: '#87E8FF33',
-                fill: true,
-                tension: 0.4,
-            }]
-        }
-    });
-
-    const pieChart = new Chart(document.getElementById('pieChart'), {
-        type: 'doughnut',
-        data: {
-            labels: ['AKL', 'PM', 'MPLB', 'KLN','HTL','DKV','PPLG'],
-            datasets: [{
-                data: [18 0, 160, 100, 60, 60, 20, 20, ],
-                backgroundColor: ['#00A9F6', '#07BEFC', '#87E8FF', '#EAFFFF']
-            }]
-        }
-    });
-</script>
-@endpush

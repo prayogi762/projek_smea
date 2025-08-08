@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SliderController;
+
 
 Route::get('/', function () {
     return view('home.HomePage');
@@ -22,7 +24,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-});
+    Route::resource('admin/slider', SliderController::class)->middleware(['auth']);
 
+});
 
 require __DIR__.'/auth.php';
