@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::create('sliders', function (Blueprint $table) {
-            $table->id();
-            $table->string('image');
+        Schema::create('sliders', function (Blueprint $table) {
+             $table->id();
+            $table->string('judul')->nullable();
+            $table->string('image'); // simpan nama/path file
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sliders');
+        Schema::dropIfExists('table_slider');
     }
 };

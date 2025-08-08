@@ -1,60 +1,58 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use App\Models\Slider;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 
 class SliderController extends Controller
 {
-
-
-public function index()
-{
-    $sliders = Slider::latest()->take(6)->get(); // Ambil 6 slider terbaru
-    return view('admin.slider_admin', compact('sliders'));
-}
-
-  public function create()
+    public function index()
     {
-        return view('admin.slider.create');
+        $sliders = Slider::latest()->get();
+        return view('admin.slider_admin', compact('sliders'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'judul' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
-        // Upload gambar
+        // Simpan file ke storage/app/public/sliders
         $imagePath = $request->file('image')->store('sliders', 'public');
 
-        // Hapus slider lama jika sudah lebih dari 6
-        $sliderCount = Slider::count();
-        if ($sliderCount >= 6) {
-            $oldestSlider = Slider::oldest()->first();
-            if ($oldestSlider) {
-                // Hapus gambar dari storage
-                Storage::disk('public')->delete($oldestSlider->image);
-                // Hapus data dari DB
-                $oldestSlider->delete();
-            }
-        }
-
-        // Simpan data slider
         Slider::create([
+            'judul' => $request->judul,
             'image' => $imagePath
         ]);
 
-        return redirect()->route('slider.index')->with('success', 'Slider berhasil ditambahkan');
+        // Hapus gambar lama jika jumlahnya lebih dari 6
+        $count = Slider::count();
+        // if ($count > 6) {
+        //     $oldestSlider = Slider::orderBy('created_at')->first();
+        //     if ($oldestSlider && Storage::disk('public')->exists($oldestSlider->image)) {
+        //         Storage::disk('public')->delete($oldestSlider->image);
+        //     }
+        //     $oldestSlider?->delete();
+        // }
+
+        return redirect()->back()->with('success', 'Gambar berhasil ditambahkan.');
     }
 
     public function destroy($id)
     {
         $slider = Slider::findOrFail($id);
-        Storage::disk('public')->delete($slider->image);
+
+        if (Storage::disk('public')->exists($slider->image)) {
+            Storage::disk('public')->delete($slider->image);
+        }
+
         $slider->delete();
 
-        return redirect()->route('slider.index')->with('success', 'Slider berhasil dihapus');
+        return redirect()->back()->with('success', 'Gambar berhasil dihapus.');
     }
 }

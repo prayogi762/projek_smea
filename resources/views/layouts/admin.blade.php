@@ -52,7 +52,7 @@
     <!-- Sidebar -->
     <div class="sidebar p-3">
         <h5 class="text-primary-custom mb-4">SMK Dashboard</h5>
-        <a href="#">Dashboard</a>
+        <a href="{{ route('admin.dashboard') }}">Dashboard</a>
         <a href="#">Siswa</a>
         <a href="#">Guru</a>
         <a href="{{ route('slider.index') }}">Slider</a>

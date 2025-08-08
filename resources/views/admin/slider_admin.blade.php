@@ -1,52 +1,57 @@
-@extends('layouts.admin')
-@section('title', 'Kelola Slider')
+
+
+    @extends('layouts.admin')
+
+@section('title', 'Dashboard Admin')
 
 @section('content')
-    @if (session('success'))
+
+    @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     <!-- Form Upload -->
-    <form action="{{ route('slider.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.sliders.store') }}" method="POST" enctype="multipart/form-data" class="mb-4">
         @csrf
         <div class="mb-3">
-            <label>Judul Gambar (Opsional)</label>
+            <label>Judul (opsional)</label>
             <input type="text" name="judul" class="form-control">
         </div>
         <div class="mb-3">
-            <label>Upload Gambar Slider</label>
-            <input type="file" name="gambar" class="form-control" required>
+            <label>Gambar</label>
+            <input type="file" name="image" class="form-control" required>
         </div>
-        <button class="btn btn-primary">Upload</button>
+        <button type="submit" class="btn btn-primary">Tambah</button>
     </form>
 
-    <hr>
-
-    <!-- Tabel Daftar Gambar -->
-    <h5>Daftar Gambar Slider</h5>
-    <table class="table table-bordered mt-3">
+    <!-- Tabel Gambar -->
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Gambar</th>
                 <th>Judul</th>
+                <th>Gambar</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($sliders as $i => $slider)
+            @foreach($sliders as $slider)
                 <tr>
-                    <td>{{ $i+1 }}</td>
-                    <td><img src="{{ asset('storage/sliders/' . $slider->gambar) }}" width="100"></td>
-                    <td>{{ $slider->judul }}</td>
+                    <td>{{ $slider->judul ?? '-' }}</td>
                     <td>
-                        <form action="{{ route('slider.destroy', $slider->id) }}" method="POST">
-                            @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                        <img src="{{ asset('storage/' . $slider->image) }}" width="100">
+                    </td>
+                    <td>
+                        <form action="{{ route('admin.sliders.destroy', $slider->id) }}" method="POST" onsubmit="return confirm('Yakin hapus gambar ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm">Hapus</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+</body>
 @endsection
+</html>

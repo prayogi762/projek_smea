@@ -25,6 +25,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('admin/slider', SliderController::class)->middleware(['auth']);
+    Route::post('/admin/sliders', [SliderController::class, 'store'])
+    ->name('admin.sliders.store');
+    Route::delete('/admin/sliders/{id}', [SliderController::class, 'destroy'])
+    ->name('admin.sliders.destroy');
+    Route::get('/admin/sliders', [SliderController::class, 'index'])
+    ->name('admin.sliders.index');  
 
 });
 
