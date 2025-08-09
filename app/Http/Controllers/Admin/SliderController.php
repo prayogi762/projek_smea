@@ -11,6 +11,7 @@ class SliderController extends Controller
 {
     public function index()
     {
+        $sliders = Slider::all();
         $sliders = Slider::latest()->get();
         return view('admin.slider_admin', compact('sliders'));
     }

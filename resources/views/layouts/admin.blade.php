@@ -64,7 +64,7 @@
     <div class="flex-grow-1 p-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="text-primary-custom">@yield('title')</h2>
-            <span class="text-muted">hallo {{ $userName }}</span>
+            
         </div>
 
         @yield('content')

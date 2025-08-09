@@ -8,7 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
-
+    
+<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -428,6 +430,60 @@
                 max-width: none;
             }
         }
+
+        .galeri {
+    text-align: center;
+    margin: 50px 0;
+}
+.galeri-header h2 {
+    font-size: 28px;
+    font-weight: bold;
+}
+.galeri-header .highlight {
+    color: #0077c2;
+}
+.galeri-slider {
+    max-width: 900px;
+    margin: auto;
+}
+.main-image img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+.thumbnail-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+.thumbnail img {
+    width: 160px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.thumbnail img:hover {
+    transform: scale(1.05);
+}
+.dots {
+    margin-top: 10px;
+}
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 3px;
+    transition: background-color 0.3s;
+}
+.dot.active {
+    background-color: #0077c2;
+}
+
     </style>
 </head>
 <body>

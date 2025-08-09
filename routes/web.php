@@ -4,11 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\SlidersController;
 
 
-Route::get('/', function () {
-    return view('home.HomePage');
+Route::get('', function () {
+    $sliders = \App\Models\Slider::all();
+    return view('home.HomePage', compact('sliders'));
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -30,8 +33,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/sliders/{id}', [SliderController::class, 'destroy'])
     ->name('admin.sliders.destroy');
     Route::get('/admin/sliders', [SliderController::class, 'index'])
-    ->name('admin.sliders.index');  
-
+    ->name('admin.sliders.index'); 
 });
 
 require __DIR__.'/auth.php';

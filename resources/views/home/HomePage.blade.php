@@ -165,13 +165,42 @@
     </div>
 </section>
 
-<div class="slider">
-    @foreach(\App\Models\Slider::latest()->take(6)->get() as $slide)
-        <img src="{{ asset('storage/sliders/' . $slide->image) }}" alt="">
-    @endforeach
-</div>
+
+<section class="text-center my-8">
+    <h2 class="text-2xl font-bold">
+        Galeri <span class="text-blue-600">Kegiatan</span>
+    </h2>
+    <p class="text-gray-500">
+        Lihat berbagai kegiatan pembelajaran dan praktik siswa SMKN 1 Ciamis
+    </p>
+
+    <!-- Main Image -->
+    <div class="main-image mt-6 flex justify-center">
+        @if($sliders->count() > 0)
+            <img src="{{ asset('storage/' . $sliders[0]->image) }}" 
+                 alt="Main" 
+                 class="rounded-lg object-cover"
+                 style="width: 1236px; height: 384px;">
+        @endif
+    </div>
+
+    <!-- Thumbnails -->
+    <div class="thumbnail flex justify-center gap-4 mt-4 flex-wrap">
+        @foreach($sliders as $slider)
+            <img src="{{ asset('storage/' . $slider->image) }}" 
+                 alt="Thumb" 
+                 class="w-32 h-20 object-cover rounded-lg cursor-pointer border hover:border-blue-500 transition">
+        @endforeach
+    </div>
+</section>
 
 
-
+<script>
+document.querySelectorAll('.thumbnail img').forEach((thumb) => {
+    thumb.addEventListener('click', function() {
+        document.querySelector('.main-image img').src = this.src;
+    });
+});
+</script>
 
 @endsection
